@@ -15,6 +15,8 @@ import AdminDashboardView from '@/views/Admin/DashboardView.vue'
 import CrearUsuarioView from '@/views/Admin/CrearUsuarioView.vue'
 import ListarUsuariosView from '@/views/Admin/ListarUsuariosView.vue'
 import ConfiguracionView from '@/views/Admin/ConfiguracionView.vue'
+import CrearProductoView from "@/views/Admin/CrearProductoView.vue";
+import InventarioView from "@/views/Admin/InventarioView.vue";
 
 // Vistas de usuario
 import UserDashboardView from '@/views/User/DashboardView.vue'
@@ -68,12 +70,12 @@ const routes = [
                 path: 'adminOptions/gestionarUsuarios/crear-usuario',
                 name: 'CrearUsuario',
                 component: CrearUsuarioView
-            },/*
+            },
             {
                 path: 'inventario',
                 name: 'AdminInventario',
-                component: () => import('@/views/admin/InventarioView.vue')
-            },
+                component: InventarioView
+            },/*
             {
                 path: 'reportes',
                 name: 'Reportes',
@@ -90,6 +92,12 @@ const routes = [
                 name : "AdminOptions",
                 component: AdminOptions
 
+            },
+
+            {
+                path: "inventario/crearProducto",
+                name: "CrearProducto",
+                component: CrearProductoView
             }
         ]
     },
