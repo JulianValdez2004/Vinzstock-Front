@@ -103,7 +103,7 @@ function toggleSidebar() {
 function handleLogout() {
   if (confirm('¿Estás seguro que deseas cerrar sesión?')) {
     logout()
-    router.push('/login')
+    router.push('/auth/login')
   }
 }
 </script>
