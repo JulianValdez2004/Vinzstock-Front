@@ -16,11 +16,12 @@ import CrearUsuarioView from '@/views/Admin/CrearUsuarioView.vue'
 import ListarUsuariosView from '@/views/Admin/ListarUsuariosView.vue'
 import ConfiguracionView from '@/views/Admin/ConfiguracionView.vue'
 import CrearProductoView from "@/views/Admin/CrearProductoView.vue";
-import InventarioView from "@/views/Admin/InventarioView.vue";
-
+import AdminOptions from "@/views/Admin/AdminOptions.vue";
+import EditarProductoView from "@/views/Admin/EditarProductoView.vue";
+import inventariodosView from "@/views/Admin/inventariodosView.vue";
 // Vistas de usuario
 import UserDashboardView from '@/views/User/DashboardView.vue'
-import AdminOptions from "@/views/Admin/AdminOptions.vue";
+
 import PerfilView from '@/views/user/PerfilView.vue'
 
 
@@ -70,17 +71,18 @@ const routes = [
                 path: 'adminOptions/gestionarUsuarios/crear-usuario',
                 name: 'CrearUsuario',
                 component: CrearUsuarioView
-            },
-            {
-                path: 'inventario',
-                name: 'AdminInventario',
-                component: InventarioView
-            },/*
+            }, /*
             {
                 path: 'reportes',
                 name: 'Reportes',
                 component: () => import('@/views/admin/ReportesView.vue')
             },*/
+
+            {
+                path: 'inventario',
+                name: 'AdminInventario',
+                component: inventariodosView
+            },
             {
                 path: 'configuracion',
                 name: 'Configuracion',
@@ -98,6 +100,13 @@ const routes = [
                 path: "inventario/crearProducto",
                 name: "CrearProducto",
                 component: CrearProductoView
+            },
+
+            {
+                path: "inventario/editarProducto",
+                name: "EditarProducto",
+                component: EditarProductoView
+
             }
         ]
     },
@@ -159,13 +168,13 @@ router.beforeEach((to, from, next) => {
 
         if (to.meta.requiresAdmin && !usuario.isAdmin()) {
             console.log('❌ No es admin, redirigiendo a dashboard de usuario')
-            next('/cajero/dashboard')
+            next('/cajero')
             return
         }
 
         if (!to.meta.requiresAdmin && usuario.isAdmin()) {
             console.log('❌ Es admin, redirigiendo a dashboard de admin')
-            next('/admin/dashboard')
+            next('/admin')
             return
         }
     }
@@ -173,9 +182,9 @@ router.beforeEach((to, from, next) => {
     if (to.path === '/login' && isAuthenticated) {
         console.log('✅ Ya autenticado, redirigiendo según rol')
         if (usuario.isAdmin()) {
-            next('/admin/dashboard')
+            next('/admin/adminOptions')
         } else {
-            next('/cajero/dashboard')
+            next('/cajero/perfil')
         }
         return
     }

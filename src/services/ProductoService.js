@@ -31,7 +31,7 @@ class ProductoService {
      */
     async getAllProductos() {
         try {
-            const response = await api.get('/producto/all')
+            const response = await api.get('/productos/all')
             return {
                 success: true,
                 data: response.data
@@ -86,9 +86,17 @@ class ProductoService {
     async deleteProducto(id) {
         try {
             const response = await api.delete(`/producto/delete/${id}`)
-            return {
-                success: true,
-                message: response.data.message || 'Producto eliminado exitosamente'
+
+            if (response.data.success) {
+                return {
+                    success: true,
+                    message: response.data.message || 'Producto eliminado exitosamente'
+                }
+            } else {
+                return {
+                    success: false,
+                    error: response.data.message || 'Error al eliminar producto'
+                }
             }
         } catch (error) {
             return this.handleError(error)
@@ -117,18 +125,57 @@ class ProductoService {
      */
     async checkNombreAvailable(nombre) {
         try {
-            const response = await api.get('/producto/all')
+            const response = await api.get('/productos/all')
             const productos = response.data
-            const exists = productos.some(p => p.nombre.toLowerCase() === nombre.toLowerCase())
+
+            // Comparar ignorando mayúsculas/minúsculas y espacios
+            const nombreNormalizado = nombre.trim().toLowerCase()
+            const exists = productos.some(p =>
+                p.nombre.trim().toLowerCase() === nombreNormalizado
+            )
+
             return { available: !exists, exists }
         } catch (error) {
             console.error('Error al verificar nombre:', error)
+            // En caso de error, permitir continuar (el backend validará)
             return { available: true, exists: false }
         }
     }
 
     /**
-     * Maneja los errores
+     * Obtener productos con bajo stock (opcional, para futuro)
+     */
+    async getProductosBajoStock(cantidad = 10) {
+        try {
+            const response = await api.get('/productos/bajo-stock', {
+                params: { cantidad }
+            })
+            return {
+                success: true,
+                data: response.data
+            }
+        } catch (error) {
+            return this.handleError(error)
+        }
+    }
+
+    /**
+     * Obtener estadísticas de productos (opcional, para futuro)
+     */
+    async getEstadisticas() {
+        try {
+            const response = await api.get('/productos/estadisticas')
+            return {
+                success: true,
+                data: response.data
+            }
+        } catch (error) {
+            return this.handleError(error)
+        }
+    }
+
+    /**
+     * Maneja los errores de las peticiones
      */
     handleError(error) {
         console.error('Error en productoService:', error)
@@ -136,11 +183,16 @@ class ProductoService {
         if (error.response?.data) {
             let errorMessage = 'Error al procesar la solicitud'
 
+            // El backend devuelve { success: false, message: "..." }
             if (error.response.data.message) {
                 errorMessage = error.response.data.message
-            } else if (typeof error.response.data === 'string') {
+            }
+            // Por si devuelve solo un string
+            else if (typeof error.response.data === 'string') {
                 errorMessage = error.response.data
-            } else if (error.response.data.error) {
+            }
+            // Por si usa "error" en lugar de "message"
+            else if (error.response.data.error) {
                 errorMessage = error.response.data.error
             }
 
@@ -149,11 +201,13 @@ class ProductoService {
                 error: errorMessage
             }
         } else if (error.request) {
+            // La petición se hizo pero no hubo respuesta
             return {
                 success: false,
                 error: 'No se pudo conectar con el servidor'
             }
         } else {
+            // Error al configurar la petición
             return {
                 success: false,
                 error: 'Error inesperado'

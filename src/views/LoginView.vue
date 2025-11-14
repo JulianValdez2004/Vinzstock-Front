@@ -75,9 +75,9 @@ async function handleLogin() {
   if (result.success) {
     setUser(result.data)
     if (result.data.isAdmin()) {
-      router.push('/admin/dashboard')
+      router.push('/admin/inventario')
     } else {
-      router.push('/cajero/dashboard')
+      router.push('/cajero/perfil')
     }
   }
 

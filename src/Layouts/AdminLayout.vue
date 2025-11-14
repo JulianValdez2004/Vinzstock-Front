@@ -21,25 +21,21 @@
         -->
 
 
-        <router-link to="/admin/inventario" class="nav-item">
-          <span class="icon">📦</span>
-          <span v-if="!isSidebarCollapsed" class="text">Inventario</span>
-        </router-link>
+
 
         <router-link to="/admin/adminOptions" class="nav-item">
           <span class="icon">📦</span>
           <span v-if="!isSidebarCollapsed" class="text">Opciones de Administrador</span>
         </router-link>
 
-        <router-link to="/admin/adminOptions" class="nav-item">
-        <span class="icon">📦</span>
-        <span v-if="!isSidebarCollapsed" class="text">ventas</span>
-        </router-link>
-
 
         <router-link to="/admin/configuracion" class="nav-item">
           <span class="icon">⚙️</span>
           <span v-if="!isSidebarCollapsed" class="text">Configuración</span>
+        </router-link>
+        <router-link to="/admin/inventario" class="nav-item">
+          <span class="icon">📦</span>
+          <span v-if="!isSidebarCollapsed" class="text">Inventario</span>
         </router-link>
       </nav>
 
