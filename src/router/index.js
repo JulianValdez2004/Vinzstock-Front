@@ -8,7 +8,7 @@ import UserLayout from '@/layouts/UserLayout.vue'
 
 // Vistas de autenticación
 import LoginView from '@/views/LoginView.vue'
-/*import RecoverPasswordView from '@/views/auth/RecoverPasswordView.vue'*/
+import RecuperarContrasenaView from '@/views/RecuperarContrasenaView.vue'
 
 // Vistas de admin
 import AdminDashboardView from '@/views/Admin/DashboardView.vue'
@@ -29,7 +29,7 @@ import PerfilView from '@/views/user/PerfilView.vue'
 const routes = [
     {
         path: '/',
-        redirect: '/login'
+        redirect: '/auth/login'
     },
 
     // ✅ RUTAS DE AUTENTICACIÓN (Sin autenticación requerida)
@@ -39,15 +39,15 @@ const routes = [
         meta: { requiresAuth: false },
         children: [
             {
-                path: '/login',
+                path: 'login',
                 name: 'Login',
                 component: LoginView
-            }/*,
+            },
             {
-                path: '/recover-password',
-                name: 'RecoverPassword',
-                component: RecoverPasswordView
-            }*/
+             path: 'recuperar-contrasena',
+             name: 'RecuperarContrasena',
+             component: RecuperarContrasenaView
+            }
         ]
     },
 

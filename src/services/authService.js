@@ -29,9 +29,9 @@ class AuthService {
 
 
 
-    async recoverPassword(username) {
+    async recoverPassword(email) {
         try {
-            const response = await api.post('/recover-password', { username })
+            const response = await api.post('/recover-password', { email })
             return {
                 success: true,
                 message: response.data.message || 'Correo de recuperación enviado'

@@ -87,7 +87,7 @@ async function handleLogin() {
  * Manejar recuperación de contraseña
  */
 async function handleRecoverPassword() {
-  await viewModel.executeRecoverPassword()
+  router.push("/auth/recuperar-contrasena");
 }
 </script>
 
