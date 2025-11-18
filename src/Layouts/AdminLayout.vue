@@ -24,18 +24,26 @@
 
 
         <router-link to="/admin/adminOptions" class="nav-item">
-          <span class="icon">📦</span>
+          <span class="icon">⚙️</span>
           <span v-if="!isSidebarCollapsed" class="text">Opciones de Administrador</span>
         </router-link>
 
 
+        <!--
         <router-link to="/admin/configuracion" class="nav-item">
           <span class="icon">⚙️</span>
           <span v-if="!isSidebarCollapsed" class="text">Configuración</span>
         </router-link>
+        -->
+
         <router-link to="/admin/inventario" class="nav-item">
           <span class="icon">📦</span>
           <span v-if="!isSidebarCollapsed" class="text">Inventario</span>
+        </router-link>
+
+        <router-link to="/admin/proveedores" class="nav-item">
+          <span class="icon">⭐</span>
+          <span v-if="!isSidebarCollapsed" class="text">Proveedores</span>
         </router-link>
       </nav>
 
@@ -103,7 +111,7 @@ function toggleSidebar() {
 function handleLogout() {
   if (confirm('¿Estás seguro que deseas cerrar sesión?')) {
     logout()
-    router.push('/auth/login')
+    router.push('/login')
   }
 }
 </script>

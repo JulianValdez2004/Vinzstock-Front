@@ -19,6 +19,7 @@ import CrearProductoView from "@/views/Admin/CrearProductoView.vue";
 import AdminOptions from "@/views/Admin/AdminOptions.vue";
 import EditarProductoView from "@/views/Admin/EditarProductoView.vue";
 import inventariodosView from "@/views/Admin/inventariodosView.vue";
+import ProveedoresView from "@/views/Admin/proveedoresView.vue";
 // Vistas de usuario
 import UserDashboardView from '@/views/User/DashboardView.vue'
 
@@ -29,12 +30,12 @@ import PerfilView from '@/views/user/PerfilView.vue'
 const routes = [
     {
         path: '/',
-        redirect: '/auth/login'
+        redirect: '/login'
     },
 
     // ✅ RUTAS DE AUTENTICACIÓN (Sin autenticación requerida)
     {
-        path: '/auth',
+        path: '/',
         component: AuthLayout,
         meta: { requiresAuth: false },
         children: [
@@ -107,7 +108,14 @@ const routes = [
                 name: "EditarProducto",
                 component: EditarProductoView
 
+            },
+
+            {
+                path: "proveedores",
+                name: "Proveedores",
+                component: ProveedoresView
             }
+
         ]
     },
 

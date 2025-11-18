@@ -2,6 +2,7 @@ import { ref, computed, watch } from 'vue'
 import productoService from '@/services/productoService'
 import { ProductoRegistro } from '@/models/ProductoRegistro'
 
+
 export class CrearProductoViewModel {
     constructor() {
         // Estado del formulario

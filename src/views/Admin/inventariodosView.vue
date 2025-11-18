@@ -79,9 +79,7 @@
         <h3>No hay productos</h3>
         <p v-if="searchQuery">No se encontraron productos con "{{ searchQuery }}"</p>
         <p v-else>Comienza creando tu primer producto</p>
-        <button @click="showCrearProducto = true" class="btn-primary">
-          ➕ Crear Producto
-        </button>
+
       </div>
 
       <table v-else class="productos-table">
@@ -93,7 +91,9 @@
           <th>Precio (sin IVA)</th>
           <th>IVA</th>
           <th>Precio Final</th>
+          <th>Cantidad</th>
           <th>Acciones</th>
+
         </tr>
         </thead>
         <tbody>
@@ -106,6 +106,7 @@
           <td class="precio-final">
             {{ formatPrecioFinal(producto.precioVenta, producto.iva) }}
           </td>
+          <td></td>
           <td>
             <div class="actions">
               <button
