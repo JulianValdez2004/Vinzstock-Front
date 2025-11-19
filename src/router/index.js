@@ -19,7 +19,7 @@ import CrearProductoView from "@/views/Admin/CrearProductoView.vue";
 import AdminOptions from "@/views/Admin/AdminOptions.vue";
 import EditarProductoView from "@/views/Admin/EditarProductoView.vue";
 import inventariodosView from "@/views/Admin/inventariodosView.vue";
-import ProveedoresView from "@/views/Admin/proveedoresView.vue";
+import ProveedoresView from "@/views/Admin/ProveedoresView.vue";
 // Vistas de usuario
 import UserDashboardView from '@/views/User/DashboardView.vue'
 
