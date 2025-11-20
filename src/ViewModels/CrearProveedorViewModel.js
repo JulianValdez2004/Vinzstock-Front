@@ -1,9 +1,18 @@
 import { ref, computed } from "vue";
-import proveedorService from "../services/proveedorService.js";
-import { ProveedorRegistro } from "../models/ProveedorRegistro";
+import proveedorService from "@/services/proveedorService"; // Ajusta si tu ruta es diferente
 
 export function useCrearProveedorViewModel() {
-    const proveedor = ref(new ProveedorRegistro());
+    const proveedor = ref({
+        nombreCompania: "",
+        tipoIdentificacion: "",
+        nitFiscal: "",
+        email: "",
+        numeroContacto: "",
+        productoNombre: "",
+        productoDescripcion: "",
+        formaPago: "",
+        fechaPedido: "",
+    });
 
     const nombreDisponible = ref(true);
     const emailDisponible = ref(true);
@@ -11,20 +20,25 @@ export function useCrearProveedorViewModel() {
     const loading = ref(false);
     const mensaje = ref("");
 
-    // Validaciones en tiempo real
     async function validarNombre() {
-        if (proveedor.value.nombreCompania.length < 3) return;
-        nombreDisponible.value = await proveedorService.checkNombreAvailable(proveedor.value.nombreCompania);
+        if (!proveedor.value.nombreCompania) return;
+        nombreDisponible.value = await proveedorService.checkNombreAvailable(
+            proveedor.value.nombreCompania
+        );
     }
 
     async function validarEmail() {
-        if (!proveedor.value.email.includes("@")) return;
-        emailDisponible.value = await proveedorService.checkEmailAvailable(proveedor.value.email);
+        if (!proveedor.value.email) return;
+        emailDisponible.value = await proveedorService.checkEmailAvailable(
+            proveedor.value.email
+        );
     }
 
     async function validarNit() {
-        if (proveedor.value.nitFiscal.length < 5) return;
-        nitDisponible.value = await proveedorService.checkNitAvailable(proveedor.value.nitFiscal);
+        if (!proveedor.value.nitFiscal) return;
+        nitDisponible.value = await proveedorService.checkNitAvailable(
+            proveedor.value.nitFiscal
+        );
     }
 
     const isFormValid = computed(() => {
@@ -42,21 +56,32 @@ export function useCrearProveedorViewModel() {
     });
 
     async function crearProveedor() {
-        if (!isFormValid.value) {
-            mensaje.value = "Completa correctamente los campos obligatorios.";
-            return;
-        }
+        if (!isFormValid.value) return;
+
+        loading.value = true;
+        mensaje.value = "";
 
         try {
-            loading.value = true;
             await proveedorService.createProveedor(proveedor.value);
-            mensaje.value = "Proveedor creado correctamente";
-            proveedor.value = new ProveedorRegistro();
-        } catch (e) {
-            mensaje.value = e;
+            mensaje.value = "Proveedor creado con éxito";
+        } catch (err) {
+            mensaje.value = "Error al crear el proveedor";
         } finally {
             loading.value = false;
         }
+
+        //Limpiar formulario después de crear
+        proveedor.value = {
+            nombreCompania: "",
+            tipoIdentificacion: "",
+            nitFiscal: "",
+            email: "",
+            numeroContacto: "",
+            productoNombre: "",
+            productoDescripcion: "",
+            formaPago: "",
+            fechaPedido: "",
+        };
     }
 
     return {

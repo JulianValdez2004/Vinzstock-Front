@@ -1,146 +1,181 @@
 <template>
-  <div class="container mx-auto p-6">
-    <h1 class="text-2xl font-bold mb-4">Crear Proveedor</h1>
+  <div class="container">
+    <h1>Crear Proveedor</h1>
 
-    <div class="bg-white shadow-md p-6 rounded-lg space-y-4">
-
+    <form @submit.prevent="vm.crearProveedor">
       <!-- Nombre Compañía -->
-      <div>
-        <label class="block font-medium">Nombre Compañía *</label>
-        <input
-            v-model="proveedor.nombreCompania"
-            @blur="validarNombre"
-            type="text"
-            class="input"
-        />
-        <p v-if="!nombreDisponible" class="text-red-500 text-sm">
-          Ya existe una empresa con ese nombre
-        </p>
-      </div>
+      <label>Nombre Compañía *</label>
+      <input
+          type="text"
+          v-model="vm.proveedor.nombreCompania"
+          @blur="vm.validarNombre"
+          placeholder="Ingrese nombre de la compañía"
+      />
+      <span v-if="!vm.proveedor.nombreCompania" class="error-msg">
+        Este campo es obligatorio
+      </span>
+      <span v-if="!vm.nombreDisponible" class="error-msg">
+        El nombre ya está en uso
+      </span>
 
-      <!-- Tipo ID -->
-      <div>
-        <label class="block font-medium">Tipo de Identificación *</label>
-        <select v-model="proveedor.tipoIdentificacion" class="input">
-          <option disabled value="">Seleccione...</option>
-          <option>NIT</option>
-          <option>RUC</option>
-          <option>CC</option>
-        </select>
-      </div>
+      <!-- Tipo Identificación -->
+      <label>Tipo de Identificación *</label>
+      <select v-model="vm.proveedor.tipoIdentificacion">
+        <option value="">Seleccione...</option>
+        <option value="NIT">NIT</option>
+        <option value="RUC">RUC</option>
+      </select>
+      <span v-if="!vm.proveedor.tipoIdentificacion" class="error-msg">
+        Debe seleccionar un tipo de identificación
+      </span>
 
-      <!-- NIT -->
-      <div>
-        <label class="block font-medium">NIT Fiscal *</label>
-        <input
-            v-model="proveedor.nitFiscal"
-            @blur="validarNit"
-            type="text"
-            class="input"
-        />
-        <p v-if="!nitDisponible" class="text-red-500 text-sm">
-          NIT ya registrado
-        </p>
-      </div>
+      <!-- NIT Fiscal -->
+      <label>NIT / RUC *</label>
+      <input
+          type="text"
+          v-model="vm.proveedor.nitFiscal"
+          @blur="vm.validarNit"
+          placeholder="Ingrese NIT o RUC"
+      />
+      <span v-if="!vm.proveedor.nitFiscal" class="error-msg">
+        Este campo es obligatorio
+      </span>
+      <span v-if="!vm.nitDisponible" class="error-msg">
+        El NIT/RUC ya está en uso
+      </span>
 
       <!-- Email -->
-      <div>
-        <label class="block font-medium">Correo electrónico *</label>
-        <input
-            v-model="proveedor.email"
-            @blur="validarEmail"
-            type="email"
-            class="input"
-        />
-        <p v-if="!emailDisponible" class="text-red-500 text-sm">
-          Ya existe un proveedor con ese email
-        </p>
-      </div>
+      <label>Email *</label>
+      <input
+          type="email"
+          v-model="vm.proveedor.email"
+          @blur="vm.validarEmail"
+          placeholder="Ingrese email"
+      />
+      <span v-if="!vm.proveedor.email" class="error-msg">
+        Este campo es obligatorio
+      </span>
+      <span v-if="!vm.emailDisponible" class="error-msg">
+        El email ya está en uso
+      </span>
 
-      <!-- Número contacto -->
-      <div>
-        <label class="block font-medium">Número de contacto</label>
-        <input v-model="proveedor.numeroContacto" type="text" class="input" />
-      </div>
+      <!-- Número de contacto -->
+      <label>Teléfono / Contacto</label>
+      <input
+          type="text"
+          v-model="vm.proveedor.numeroContacto"
+          placeholder="Ingrese número de contacto"
+      />
 
-      <!-- Producto nombre -->
-      <div>
-        <label class="block font-medium">Producto Nombre</label>
-        <input v-model="proveedor.productoNombre" type="text" class="input" />
-      </div>
+      <!-- Producto Nombre -->
+      <label>Nombre del Producto</label>
+      <input
+          type="text"
+          v-model="vm.proveedor.productoNombre"
+          placeholder="Nombre máximo 20 caracteres"
+      />
+      <span v-if="vm.proveedor.productoNombre.length > 20" class="error-msg">
+        Máximo 20 caracteres
+      </span>
 
-      <!-- Producto descripción -->
-      <div>
-        <label class="block font-medium">Producto Descripción</label>
-        <textarea v-model="proveedor.productoDescripcion" class="input"></textarea>
-      </div>
+      <!-- Producto Descripción -->
+      <label>Descripción del Producto</label>
+      <textarea
+          v-model="vm.proveedor.productoDescripcion"
+          placeholder="Descripción máxima 120 caracteres"
+      ></textarea>
+      <span v-if="vm.proveedor.productoDescripcion.length > 120" class="error-msg">
+        Máximo 120 caracteres
+      </span>
 
-      <!-- Forma pago -->
-      <div>
-        <label class="block font-medium">Forma de Pago *</label>
-        <select v-model="proveedor.formaPago" class="input">
-          <option disabled value="">Seleccione...</option>
-          <option>Contra entrega</option>
-          <option>Tarjeta</option>
-          <option>Consignación</option>
-        </select>
-      </div>
+      <!-- Forma de Pago -->
+      <label>Forma de Pago *</label>
+      <select v-model="vm.proveedor.formaPago">
+        <option value="">Seleccione...</option>
+        <option value="Contra entrega">Contra entrega</option>
+        <option value="Tarjeta">Tarjeta</option>
+        <option value="Consignación">Consignación</option>
+      </select>
+      <span v-if="!vm.proveedor.formaPago" class="error-msg">
+        Debe seleccionar una forma de pago
+      </span>
 
-      <!-- Fecha pedido -->
-      <div>
-        <label class="block font-medium">Fecha de Pedido *</label>
-        <input v-model="proveedor.fechaPedido" type="date" class="input" />
-      </div>
+      <!-- Fecha de Pedido -->
+      <label>Fecha de Pedido *</label>
+      <input type="date" v-model="vm.proveedor.fechaPedido" />
+      <span v-if="!vm.proveedor.fechaPedido" class="error-msg">
+        Debe seleccionar una fecha
+      </span>
 
-      <div class="flex justify-between mt-6">
-        <button @click="$router.push('/admin/proveedores')" class="btn-cancel">
-          Cancelar
-        </button>
-
-        <button
-            :disabled="!isFormValid || loading"
-            @click="crearProveedor"
-            class="btn-primary"
-        >
-          Crear Proveedor
-        </button>
-      </div>
-
-      <p v-if="mensaje" class="text-center font-semibold mt-2">
-        {{ mensaje }}
+      <!-- Mensaje general -->
+      <p v-if="vm.mensaje" :class="{ success: mensajeExito, error: !mensajeExito }">
+        {{ vm.mensaje }}
       </p>
-    </div>
+
+      <button type="submit" :disabled="vm.loading || !vm.isFormValid">
+        {{ vm.loading ? "Creando..." : "Crear Proveedor" }}
+      </button>
+    </form>
   </div>
 </template>
 
 <script setup>
-import { useCrearProveedorViewModel } from "../viewmodels/CrearProveedorViewModel";
+import { useCrearProveedorViewModel } from "@/ViewModels/CrearProveedorViewModel";
 
-const {
-  proveedor,
-  nombreDisponible,
-  emailDisponible,
-  nitDisponible,
-  loading,
-  mensaje,
-  validarNombre,
-  validarEmail,
-  validarNit,
-  isFormValid,
-  crearProveedor,
-} = useCrearProveedorViewModel();
+const vm = useCrearProveedorViewModel();
+
+// Computed para mensaje de éxito/error
+const mensajeExito = computed(() => vm.mensaje && vm.mensaje.includes("éxito"));
 </script>
 
-<style>
-.input {
-  @apply w-full p-2 border rounded-md;
+<style scoped>
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
-.btn-primary {
-  @apply bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 disabled:opacity-50;
+label {
+  display: block;
+  margin-top: 15px;
+  font-weight: bold;
 }
 
-.btn-cancel {
-  @apply bg-gray-300 px-4 py-2 rounded-md hover:bg-gray-400;
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  box-sizing: border-box;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+.error-msg {
+  color: red;
+  font-size: 0.9rem;
+}
+
+.success {
+  color: green;
+  font-weight: bold;
+}
+
+button {
+  margin-top: 20px;
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 </style>

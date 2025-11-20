@@ -1,10 +1,11 @@
-import api from "./api";
+import api from "./apiLogin";
+import { ProveedorRegistro } from '@/models/ProveedorRegistro'
 
 class ProveedorService {
 
     async createProveedor(proveedor) {
         try {
-            const response = await api.post("/proveedores/crear", proveedor);
+            const response = await api.post("/proveedor/save", proveedor); // /proveedor/save
             return response.data;
         } catch (error) {
             throw this.handleError(error);
@@ -13,7 +14,7 @@ class ProveedorService {
 
     async getAllProveedores() {
         try {
-            const response = await api.get("/proveedores");
+            const response = await api.get("/proveedores/all"); // /proveedores/all
             return response.data;
         } catch (error) {
             throw this.handleError(error);
@@ -22,16 +23,16 @@ class ProveedorService {
 
     async getProveedorById(id) {
         try {
-            const response = await api.get(`/proveedores/${id}`);
+            const response = await api.get(`/proveedor/${id}`); // /proveedor/{id}
             return response.data;
         } catch (error) {
             throw this.handleError(error);
         }
     }
 
-    async updateProveedor(id, proveedor) {
+    async updateProveedor(proveedor) {
         try {
-            const response = await api.put(`/proveedores/editar/${id}`, proveedor);
+            const response = await api.put(`/proveedor/update`, proveedor); // /proveedor/update
             return response.data;
         } catch (error) {
             throw this.handleError(error);
@@ -52,7 +53,7 @@ class ProveedorService {
     // Validaciones individuales
     async checkNombreAvailable(nombreCompania) {
         try {
-            const response = await api.get(`/proveedores/validar/nombre/${nombreCompania}`);
+            const response = await api.get(`/proveedor/validar/nombre/${nombreCompania}`); // /proveedor/validar/nombre/{nombre}
             return response.data;
         } catch (error) {
             throw this.handleError(error);
@@ -61,7 +62,7 @@ class ProveedorService {
 
     async checkEmailAvailable(email) {
         try {
-            const response = await api.get(`/proveedores/validar/email/${email}`);
+            const response = await api.get(`/proveedor/validar/email/${email}`);
             return response.data;
         } catch (error) {
             throw this.handleError(error);
@@ -70,7 +71,7 @@ class ProveedorService {
 
     async checkNitAvailable(nitFiscal) {
         try {
-            const response = await api.get(`/proveedores/validar/nit/${nitFiscal}`);
+            const response = await api.get(`/proveedor/validar/nit/${nitFiscal}`);
             return response.data;
         } catch (error) {
             throw this.handleError(error);
