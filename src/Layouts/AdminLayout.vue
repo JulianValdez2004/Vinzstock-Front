@@ -99,7 +99,8 @@ const pageTitle = computed(() => {
     '/admin/usuarios': 'Gestión de Usuarios',
     '/admin/crear-usuario': 'Crear Nuevo Usuario',
     '/admin/inventario': 'Inventario',
-    '/admin/configuracion': 'Configuración'
+    '/admin/configuracion': 'Configuración',
+    '/admin/proveedores' : 'Proveedores'
   }
   return titles[route.path] || 'Panel de Administración'
 })

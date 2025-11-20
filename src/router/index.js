@@ -19,11 +19,13 @@ import CrearProductoView from "@/views/Admin/CrearProductoView.vue";
 import AdminOptions from "@/views/Admin/AdminOptions.vue";
 import EditarProductoView from "@/views/Admin/EditarProductoView.vue";
 import inventariodosView from "@/views/Admin/inventariodosView.vue";
+import CrearProveedorView from "@/views/Admin/CrearProveedorView.vue";
 import ProveedoresView from "@/views/Admin/proveedoresView.vue";
+
 // Vistas de usuario
 import UserDashboardView from '@/views/User/DashboardView.vue'
-
 import PerfilView from '@/views/user/PerfilView.vue'
+
 
 
 
@@ -114,6 +116,12 @@ const routes = [
                 path: "proveedores",
                 name: "Proveedores",
                 component: ProveedoresView
+            },
+
+            {
+                path: "proveedores/CrearProveedor",
+                name: "CrearProveedor",
+                component: CrearProveedorView
             }
 
         ]
