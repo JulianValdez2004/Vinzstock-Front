@@ -87,7 +87,7 @@ async function handleLogin() {
  * Manejar recuperación de contraseña
  */
 async function handleRecoverPassword() {
-  router.push("/auth/recuperar-contrasena");
+  router.push("/recuperar-contrasena");
 }
 </script>
 

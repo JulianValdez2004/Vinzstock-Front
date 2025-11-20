@@ -3,11 +3,7 @@ export class ProveedorRegistro {
         this.nombreCompania = "";
         this.tipoIdentificacion = "";
         this.nitFiscal = "";
-        this.numeroContacto = "";
+        this.telefono = "";
         this.email = "";
-        this.productoNombre = "";
-        this.productoDescripcion = "";
-        this.formaPago = "";
-        this.fechaPedido = "";
     }
 }

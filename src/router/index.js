@@ -112,7 +112,7 @@ const routes = [
             },
 
             {
-                path: "proveedores",
+                path: "proveedores/CrearProveedor",
                 name: "CrearProveedor",
                 component: CrearProveedorView
             }
