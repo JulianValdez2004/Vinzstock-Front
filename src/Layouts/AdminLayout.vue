@@ -175,6 +175,7 @@ function handleLogout() {
   overflow-y: auto;
 }
 
+/* ---------- NAV ITEM ACTUALIZADO ---------- */
 .nav-item {
   display: flex;
   align-items: center;
@@ -182,24 +183,28 @@ function handleLogout() {
   padding: 12px 20px;
   color: rgba(255, 255, 255, 0.7);
   text-decoration: none;
-  transition: all 0.2s;
+  transition: all 0.25s ease;
   cursor: pointer;
   border: none;
   background: transparent;
   width: 100%;
   text-align: left;
   font-size: 14px;
+  border-radius: 8px; /* Igual que logout */
 }
 
 .nav-item:hover {
-  background: rgba(255, 255, 255, 0.05);
-  color: white;
+  background-color: rgba(255, 255, 255, 0.15); /* Más visible */
+  color: #ffffff;
+  transform: translateX(3px);  /* ligero movimiento */
 }
 
+/* Activo */
 .nav-item.router-link-active {
-  background: rgba(59, 130, 246, 0.1);
+  background: rgba(59, 130, 246, 0.2);
   color: #3b82f6;
   border-right: 3px solid #3b82f6;
+  transform: none;
 }
 
 .nav-item .icon {
@@ -207,11 +212,7 @@ function handleLogout() {
   min-width: 24px;
 }
 
-.nav-item .text {
-  white-space: nowrap;
-  overflow: hidden;
-}
-
+/* Footer - Logout */
 .sidebar-footer {
   padding: 20px 0;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -219,10 +220,15 @@ function handleLogout() {
 
 .logout-btn {
   color: #ef4444;
+  background-color: rgba(239, 68, 68, 0.08);
+  border-radius: 8px;
+  transition: all 0.25s ease;
 }
 
 .logout-btn:hover {
-  background: rgba(239, 68, 68, 0.1);
+  background-color: rgba(239, 68, 68, 0.2);
+  color: white;
+  transform: translateX(3px);
 }
 
 /* Main Content */

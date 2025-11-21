@@ -33,8 +33,8 @@ api.interceptors.response.use(
     error => {
         if (error.response?.status === 401) {
             localStorage.removeItem('usuario')
-            if (window.location.pathname !== '/auth/login') {
-                window.location.href = '/auth/login'
+            if (window.location.pathname !== '/login') {
+                window.location.href = '/login'
             }
         }
         return Promise.reject(error)
