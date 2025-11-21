@@ -11,6 +11,10 @@
           <span class="icon">➕</span>
           Nuevo Proveedor
         </button>
+        <button class="btn btn-secondary" @click="irACrearPedido">
+          <span class="icon">➕</span>
+          Nuevo Pedido
+        </button>
       </div>
 
       <!-- Card de búsqueda y tabla -->
@@ -290,6 +294,10 @@ const limpiarBusqueda = () => {
 
 const irACrear = () => {
   router.push('/admin/proveedores/CrearProveedor');
+};
+
+const irACrearPedido = () => {
+  router.push('/admin/proveedores/HacerPedido');
 };
 
 const editarProveedor = (proveedor) => {
@@ -727,12 +735,14 @@ onMounted(() => {
 }
 
 .btn-secondary {
-  background: #e0e0e0;
-  color: #2c3e50;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
 }
 
 .btn-secondary:hover {
-  background: #d0d0d0;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
 }
 
 .icon {

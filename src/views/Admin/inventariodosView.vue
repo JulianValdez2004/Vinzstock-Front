@@ -433,6 +433,8 @@ function closeEditarProducto() {
   color: #64748b;
 }
 
+
+
 .spinner {
   width: 48px;
   height: 48px;

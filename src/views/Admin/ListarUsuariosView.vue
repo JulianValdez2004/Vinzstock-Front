@@ -177,6 +177,8 @@ async function toggleEstado(usuario) {
   transition: background 0.2s;
 }
 
+
+
 .btn-primary:hover {
   background: #15803d;
 }

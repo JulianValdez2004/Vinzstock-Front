@@ -22,6 +22,7 @@ import inventariodosView from "@/views/Admin/inventariodosView.vue";
 import CrearProveedorView from "@/views/Admin/CrearProveedorView.vue";
 import ProveedoresView from "@/views/Admin/proveedoresView.vue";
 import EditarProveedorView from "@/views/Admin/EditarProveedorView.vue";
+import CrearCompraView from "@/views/Admin/CrearCompraView.vue";
 
 // Vistas de usuario
 import UserDashboardView from '@/views/User/DashboardView.vue'
@@ -130,6 +131,13 @@ const routes = [
                 path: "proveedores/editar/:id",
                 name: "EditarProveedor",
                 component: EditarProveedorView
+            },
+
+            {
+                path: "proveedores/HacerPedido",
+                name: "HacerPedido",
+                component: CrearCompraView
+
             }
 
         ]
