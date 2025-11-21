@@ -1,5 +1,5 @@
 <template>
-  <div class="crear-proveedor-page">
+  <div class="editar-proveedor-page">
     <div class="container">
       <!-- Header -->
       <div class="page-header">
@@ -8,15 +8,21 @@
             <span class="icon-back">←</span>
             Volver
           </button>
-          <h1>Crear Nuevo Proveedor</h1>
+          <h1>Editar Proveedor</h1>
         </div>
       </div>
 
+      <!-- Loading State -->
+      <div v-if="cargandoDatos" class="loading-container">
+        <div class="spinner-large"></div>
+        <p>Cargando datos del proveedor...</p>
+      </div>
+
       <!-- Card principal -->
-      <div class="card-form">
+      <div v-else class="card-form">
         <!-- Mensaje de éxito -->
         <transition name="fade">
-          <div v-if="exitoRegistro" class="alert alert-success">
+          <div v-if="exitoActualizacion" class="alert alert-success">
             <div class="alert-icon">✓</div>
             <div class="alert-content">
               <strong>¡Éxito!</strong>
@@ -38,8 +44,14 @@
           </div>
         </transition>
 
+        <!-- Badge de cambios pendientes -->
+        <div v-if="hayCambios" class="cambios-badge">
+          <span class="badge-icon">⚡</span>
+          Hay cambios sin guardar
+        </div>
+
         <!-- Formulario -->
-        <form @submit.prevent="handleCrear" class="form-create">
+        <form @submit.prevent="handleActualizar" class="form-edit">
           <div class="form-section">
             <h3 class="section-title">Información General</h3>
 
@@ -172,10 +184,10 @@
             <button
                 type="button"
                 class="btn btn-reset"
-                @click="handleLimpiar"
-                :disabled="cargando"
+                @click="handleResetear"
+                :disabled="cargando || !hayCambios"
             >
-              Limpiar Formulario
+              Deshacer Cambios
             </button>
 
             <button
@@ -185,14 +197,14 @@
             >
               <span v-if="cargando" class="spinner"></span>
               <span v-else class="icon-save">💾</span>
-              {{ cargando ? 'Guardando...' : 'Crear Proveedor' }}
+              {{ cargando ? 'Guardando...' : 'Guardar Cambios' }}
             </button>
           </div>
         </form>
       </div>
 
       <!-- Información adicional -->
-      <div class="info-card">
+      <div v-if="!cargandoDatos" class="info-card">
         <div class="info-header">
           <span class="info-icon">ℹ️</span>
           <h4>Información Importante</h4>
@@ -202,7 +214,7 @@
           <li>El NIT fiscal debe ser único en el sistema</li>
           <li>El email debe ser único y válido</li>
           <li>El teléfono es opcional pero debe tener 10 dígitos si se ingresa</li>
-          <li>Todos los datos pueden ser editados posteriormente</li>
+          <li>Los cambios se guardarán inmediatamente al confirmar</li>
         </ul>
       </div>
     </div>
@@ -211,56 +223,64 @@
 
 <script setup>
 import { watch } from 'vue';
-import { useRouter } from 'vue-router';
-import { useCrearProveedorViewModel } from '@/ViewModels/CrearProveedorViewModel';
+import { useRouter, useRoute } from 'vue-router';
+import { useEditarProveedorViewModel } from '@/ViewModels/EditarProveedorViewModel';
 
 const router = useRouter();
+const route = useRoute();
+
+// Obtener el ID del proveedor de la ruta
+const proveedorId = route.params.id;
 
 const {
   proveedor,
   cargando,
+  cargandoDatos,
   errores,
   mensaje,
-  exitoRegistro,
+  exitoActualizacion,
   erroresNombre,
   erroresNit,
   erroresTelefono,
   erroresEmail,
   puedeGuardar,
+  hayCambios,
   validarCampo,
   limpiarErrorCampo,
-  limpiarFormulario,
-  crearProveedor
-} = useCrearProveedorViewModel();
+  resetearCambios,
+  actualizarProveedor
+} = useEditarProveedorViewModel(proveedorId);
 
-const handleCrear = async () => {
-  const resultado = await crearProveedor();
+const handleActualizar = async () => {
+  const resultado = await actualizarProveedor();
 
   if (resultado.success) {
     setTimeout(() => {
       router.push('/admin/proveedores');
-    }, 3000);
+    }, 2000);
   }
 };
 
 const handleCancelar = () => {
-  if (confirm('¿Estás seguro de que deseas cancelar? Se perderán los datos ingresados.')) {
-    limpiarFormulario();
+  if (hayCambios.value) {
+    if (confirm('¿Estás seguro de que deseas cancelar? Se perderán los cambios realizados.')) {
+      router.push('/admin/proveedores');
+    }
+  } else {
     router.push('/admin/proveedores');
   }
 };
 
-const handleLimpiar = () => {
-  if (confirm('¿Estás seguro de que deseas limpiar el formulario?')) {
-    limpiarFormulario();
+const handleResetear = () => {
+  if (confirm('¿Estás seguro de que deseas deshacer los cambios?')) {
+    resetearCambios();
   }
 };
 
 const volver = () => {
-  if (proveedor.value.nombre || proveedor.value.nitFiscal ||
-      proveedor.value.email || proveedor.value.telefono) {
-    if (confirm('¿Estás seguro de que deseas salir? Se perderán los datos ingresados.')) {
-      router.push('/admin/proveedores/CrearProveedor');
+  if (hayCambios.value) {
+    if (confirm('¿Estás seguro de que deseas salir? Se perderán los cambios realizados.')) {
+      router.push('/admin/proveedores');
     }
   } else {
     router.push('/admin/proveedores');
@@ -268,7 +288,7 @@ const volver = () => {
 };
 
 watch(mensaje, (nuevoMensaje) => {
-  if (nuevoMensaje && exitoRegistro.value) {
+  if (nuevoMensaje && exitoActualizacion.value) {
     setTimeout(() => {
       mensaje.value = '';
     }, 3000);
@@ -277,7 +297,8 @@ watch(mensaje, (nuevoMensaje) => {
 </script>
 
 <style scoped>
-.crear-proveedor-page {
+/* Reutilizamos los mismos estilos de CrearProveedorView */
+.editar-proveedor-page {
   min-height: 100vh;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   padding: 2rem 0;
@@ -287,6 +308,41 @@ watch(mensaje, (nuevoMensaje) => {
   max-width: 900px;
   margin: 0 auto;
   padding: 0 1rem;
+}
+
+.loading-container {
+  background: white;
+  border-radius: 12px;
+  padding: 4rem 2rem;
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+}
+
+.spinner-large {
+  width: 60px;
+  height: 60px;
+  border: 4px solid #e0e0e0;
+  border-top-color: #667eea;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 1.5rem;
+}
+
+.cambios-badge {
+  background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+  color: #2d3436;
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(253, 203, 110, 0.3);
+}
+
+.badge-icon {
+  font-size: 1.25rem;
 }
 
 .page-header {
@@ -386,7 +442,7 @@ watch(mensaje, (nuevoMensaje) => {
   margin-bottom: 0.25rem;
 }
 
-.form-create {
+.form-edit {
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -630,7 +686,7 @@ watch(mensaje, (nuevoMensaje) => {
 }
 
 @media (max-width: 768px) {
-  .crear-proveedor-page {
+  .editar-proveedor-page {
     padding: 1rem 0;
   }
 

@@ -116,13 +116,6 @@
               >
                 ✏️
               </button>
-              <button
-                  @click="confirmarEliminar(producto)"
-                  class="btn-delete"
-                  title="Eliminar"
-              >
-                🗑️
-              </button>
             </div>
           </td>
         </tr>
@@ -206,6 +199,7 @@ function editarProducto(producto) {
 /**
  * Confirmar eliminación
  */
+/*
 async function confirmarEliminar(producto) {
   if (confirm(`¿Estás seguro de eliminar "${producto.nombre}"?`)) {
     try {
@@ -222,7 +216,7 @@ async function confirmarEliminar(producto) {
     }
   }
 }
-
+*/
 /**
  * Manejar creación exitosa
  */
