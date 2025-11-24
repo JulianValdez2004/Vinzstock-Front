@@ -2,9 +2,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 import authService from '@/services/authService'
 
 // Layouts
-import AuthLayout from '@/layouts/AuthLayout.vue'
-import AdminLayout from '@/layouts/AdminLayout.vue'
-import UserLayout from '@/layouts/UserLayout.vue'
+import AuthLayout from '@/Layouts/AuthLayout.vue'
+import AdminLayout from '@/Layouts/AdminLayout.vue'
+import UserLayout from '@/Layouts/UserLayout.vue'
 
 // Vistas de autenticación
 import LoginView from '@/views/LoginView.vue'
@@ -26,7 +26,7 @@ import CrearCompraView from "@/views/Admin/CrearCompraView.vue";
 
 // Vistas de usuario
 import UserDashboardView from '@/views/User/DashboardView.vue'
-import PerfilView from '@/views/user/PerfilView.vue'
+import PerfilView from '@/views/User/PerfilView.vue'
 
 
 

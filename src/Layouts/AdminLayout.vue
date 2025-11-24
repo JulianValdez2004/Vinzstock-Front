@@ -121,13 +121,13 @@ function handleLogout() {
 .admin-layout {
   display: flex;
   min-height: 100vh;
-  background: #f5f7fb;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
 /* Sidebar */
 .sidebar {
   width: 260px;
-  background: #1e293b;
+  background: linear-gradient(135deg, #6257f3 0%, #000000 100%);
   color: white;
   display: flex;
   flex-direction: column;
@@ -161,7 +161,7 @@ function handleLogout() {
   color: white;
   font-size: 20px;
   cursor: pointer;
-  padding: 5px;
+  padding: 8px;
   transition: transform 0.2s;
 }
 
@@ -190,20 +190,20 @@ function handleLogout() {
   width: 100%;
   text-align: left;
   font-size: 14px;
-  border-radius: 8px; /* Igual que logout */
+  border-radius: 2px; /* Igual que logout */
 }
 
 .nav-item:hover {
-  background-color: rgba(255, 255, 255, 0.15); /* Más visible */
+  background: linear-gradient(135deg, #6257f3 0%, #000000 100%);/* Más visible */
   color: #ffffff;
   transform: translateX(3px);  /* ligero movimiento */
 }
 
 /* Activo */
 .nav-item.router-link-active {
-  background: rgba(59, 130, 246, 0.2);
-  color: #3b82f6;
-  border-right: 3px solid #3b82f6;
+  background: linear-gradient(135deg, #6257f3 0%, #000000 100%);
+  color: #ffffff;
+  border-right: 3px solid #000000;
   transform: none;
 }
 
@@ -221,14 +221,14 @@ function handleLogout() {
 .logout-btn {
   color: #ef4444;
   background-color: rgba(239, 68, 68, 0.08);
-  border-radius: 8px;
+  border-radius: 5px;
   transition: all 0.25s ease;
 }
 
 .logout-btn:hover {
   background-color: rgba(239, 68, 68, 0.2);
   color: white;
-  transform: translateX(3px);
+  transform: translateX(1px);
 }
 
 /* Main Content */
@@ -280,7 +280,7 @@ function handleLogout() {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: #3b82f6;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   display: flex;
   align-items: center;
@@ -297,7 +297,7 @@ function handleLogout() {
 .user-name {
   font-size: 14px;
   font-weight: 600;
-  color: #0f172a;
+  color: #2a0f14;
 }
 
 .user-role {
