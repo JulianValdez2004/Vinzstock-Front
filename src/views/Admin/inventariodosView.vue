@@ -499,15 +499,15 @@ function closeEditarProducto() {
 }
 
 .btn-primary {
-  padding: 10px 20px;
-  background: #3b82f6;
+  padding: 15px 30px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   border: none;
   border-radius: 6px;
   cursor: pointer;
   font-weight: 600;
   font-size: 14px;
-  transition: background 0.2s;
+  transition: 0.2s;
 }
 
 .btn-primary:hover {
