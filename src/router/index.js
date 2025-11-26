@@ -23,6 +23,7 @@ import CrearProveedorView from "@/views/Admin/CrearProveedorView.vue";
 import ProveedoresView from "@/views/Admin/proveedoresView.vue";
 import EditarProveedorView from "@/views/Admin/EditarProveedorView.vue";
 import CrearCompraView from "@/views/Admin/CrearCompraView.vue";
+import ListaComprasView from '@/views/Admin/ListaComprasView.vue'
 
 // Vistas de usuario
 import UserDashboardView from '@/views/User/DashboardView.vue'
@@ -138,6 +139,12 @@ const routes = [
                 name: "HacerPedido",
                 component: CrearCompraView
 
+            },
+
+            {
+                path: "proveedores/ListaCompras",
+                name: "ListaCompras",
+                component: ListaComprasView
             }
 
         ]

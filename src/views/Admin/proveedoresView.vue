@@ -15,6 +15,12 @@
           <span class="icon">➕</span>
           Nuevo Pedido
         </button>
+
+        <router-link to="/admin/proveedores/ListaCompras" class="btn-ldp">
+
+          ➕ Lista de Pedidos
+        </router-link>
+
       </div>
 
       <!-- Card de búsqueda y tabla -->
@@ -741,6 +747,17 @@ onMounted(() => {
 }
 
 .btn-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+}
+
+.btn-ldp{
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.btn-ldp:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
 }
