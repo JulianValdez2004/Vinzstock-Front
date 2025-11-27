@@ -39,15 +39,6 @@
             </option>
           </select>
           
-          <button
-            v-if="viewModel.hayCompras.value"
-            @click="viewModel.borrarHistorialCompleto()"
-            class="btn-danger"
-            :disabled="viewModel.isLoading.value"
-            title="Borrar todo el historial"
-          >
-            🗑️ Borrar Historial
-          </button>
         </div>
       </div>
     </div>
@@ -163,35 +154,20 @@
                   title="Confirmar recepción"
                   :disabled="viewModel.isLoading.value"
                 >
-                  ✅ Confirmar
+                  Confirmar
                 </button>
                 
-                <button
-                  @click="viewModel.cancelarCompra(compra)"
-                  class="btn-cancelar"
-                  title="Cancelar compra"
-                  :disabled="viewModel.isLoading.value"
-                >
-                  ❌ Cancelar
-                </button>
               </div>
               
               <!-- Solo ver detalles para recibidos -->
               <div v-else-if="compra.estado === 'Recibido'" class="acciones-recibido">
                 <span class="texto-recibido">Compra recibida</span>
               </div>
-              
-              <!-- Eliminar para cancelados -->
+              <!-- Solo texto para cancelados (SIN botón eliminar) -->
               <div v-else class="acciones-cancelado">
-                <button
-                  @click="viewModel.eliminarCompra(compra)"
-                  class="btn-eliminar"
-                  title="Eliminar compra"
-                  :disabled="viewModel.isLoading.value"
-                >
-                  🗑️ Eliminar
-                </button>
+              <span class="texto-cancelado">Compra cancelada</span>
               </div>
+              
             </td>
           </tr>
         </tbody>
@@ -355,6 +331,7 @@ async function onProveedorChange() {
   font-weight: 600;
   color: #0f172a;
 }
+
 
 .selector-with-button {
   display: flex;
@@ -594,12 +571,23 @@ async function onProveedorChange() {
 /* Acciones */
 .acciones-cell {
   min-width: 250px;
+  text-align: center;
 }
 
 .acciones-pendiente {
   display: flex;
   gap: 8px;
-  justify-content: flex-end;
+  justify-content: center;
+}
+
+.acciones-recibido {
+  display: flex;
+  justify-content: center;
+}
+
+.acciones-cancelado {
+  display: flex;
+  justify-content: center;
 }
 
 .btn-confirmar,
@@ -650,6 +638,12 @@ async function onProveedorChange() {
 
 .texto-recibido {
   color: #16a34a;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.texto-cancelado {
+  color: #dc2626;
   font-weight: 600;
   font-size: 13px;
 }
