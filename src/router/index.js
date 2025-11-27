@@ -2,9 +2,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 import authService from '@/services/authService'
 
 // Layouts
-import AuthLayout from '@/layouts/AuthLayout.vue'
-import AdminLayout from '@/layouts/AdminLayout.vue'
-import UserLayout from '@/layouts/UserLayout.vue'
+import AuthLayout from '@/Layouts/AuthLayout.vue'
+import AdminLayout from '@/Layouts/AdminLayout.vue'
+import UserLayout from '@/Layouts/UserLayout.vue'
 
 // Vistas de autenticación
 import LoginView from '@/views/LoginView.vue'
@@ -23,10 +23,12 @@ import CrearProveedorView from "@/views/Admin/CrearProveedorView.vue";
 import ProveedoresView from "@/views/Admin/proveedoresView.vue";
 import EditarProveedorView from "@/views/Admin/EditarProveedorView.vue";
 import CrearCompraView from "@/views/Admin/CrearCompraView.vue";
+import CrearClienteView from '@/views/Admin/CrearClienteView.vue';
+import VentasView from '@/views/Admin/VentasView.vue'
 
 // Vistas de usuario
 import UserDashboardView from '@/views/User/DashboardView.vue'
-import PerfilView from '@/views/user/PerfilView.vue'
+import PerfilView from '@/views/User/PerfilView.vue'
 
 
 
@@ -138,7 +140,22 @@ const routes = [
                 name: "HacerPedido",
                 component: CrearCompraView
 
+            },
+
+            {
+                path: "ventas",
+                name: "Ventas",
+                component:VentasView
+            
+            },
+
+            {
+                path: "ventas/crear-cliente",
+                name: "CrearCliente",
+                component: CrearClienteView
+
             }
+            
 
         ]
     },
@@ -158,12 +175,19 @@ const routes = [
                 path: 'perfil',
                 name: 'Perfil',
                 component: PerfilView
-            }/*,
+            },
             {
-                path: 'inventario',
-                name: 'UserInventario',
-                component: () => import('@/views/user/InventarioView.vue')
-            }*/
+                path: 'ventas',
+                name: 'Ventas',
+                component: VentasView
+            },
+
+            {
+                path: 'ventas/crear-cliente',
+                name: 'CrearCliente',
+                component: CrearClienteView
+            }
+            
         ]
     },
 

@@ -12,6 +12,7 @@
       </div>
 
       <nav class="sidebar-nav">
+        <!--
         <router-link to="/cajero/dashboard" class="nav-item">
           <span class="icon">👤</span>
           <span v-if="!isSidebarCollapsed" class="text">Informacion Personal</span>
@@ -28,11 +29,17 @@
           <span class="icon">⚙️</span>
           <span v-if="!isSidebarCollapsed" class="text">Configuración</span>
         </router-link>
-
+        -->
         <router-link to="/cajero/perfil" class="nav-item">
           <span class="icon">⚙️</span>
           <span v-if="!isSidebarCollapsed" class="text">perfil</span>
         </router-link>
+
+        <router-link to="/cajero/ventas" class="nav-item">
+          <span class="icon">💰</span>
+          <span v-if="!isSidebarCollapsed" class="text">Ventas</span>
+        </router-link>
+
       </nav>
 
       <div class="sidebar-footer">
@@ -87,7 +94,8 @@ const pageTitle = computed(() => {
     '/admin/usuarios': 'Gestión de Usuarios',
     '/admin/crear-usuario': 'Crear Nuevo Usuario',
     '/admin/inventario': 'Inventario',
-    '/admin/configuracion': 'Configuración'
+    '/admin/configuracion': 'Configuración',
+    '/admin/ventas/crear-cliente':'Crear Cliente'
   }
   return titles[route.path] || 'Panel de Administración'
 })
@@ -105,10 +113,10 @@ function handleLogout() {
 </script>
 
 <style scoped>
-admin-layout {
+.user-layout {
   display: flex;
   min-height: 100vh;
-  background: #f5f7fb;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
 /* Sidebar */
