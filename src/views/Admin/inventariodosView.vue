@@ -127,7 +127,7 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
-import productoService from '@/services/productoService'
+import productoService from '@/services/ProductoService'
 import CrearProductoView from './CrearProductoView.vue'
 import EditarProductoView from './EditarProductoView.vue'
 
@@ -500,18 +500,23 @@ function closeEditarProducto() {
 
 .btn-primary {
   padding: 10px 20px;
-  background: #3b82f6;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   border: none;
   border-radius: 6px;
   cursor: pointer;
   font-weight: 600;
+  text-decoration: none;
   font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   transition: background 0.2s;
 }
 
 .btn-primary:hover {
-  background: #2563eb;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
 }
 
 .productos-table {

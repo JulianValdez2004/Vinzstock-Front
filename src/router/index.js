@@ -32,6 +32,7 @@ import PerfilView from '@/views/User/PerfilView.vue'
 
 
 
+
 const routes = [
     {
         path: '/',

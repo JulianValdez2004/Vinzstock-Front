@@ -280,11 +280,7 @@ function handleCancel() {
 </script>
 
 <style scoped>
-.crear-compra-container {
-  min-height: 100vh;
-  background: #f5f7fa;
-  padding: 2rem;
-}
+
 
 .crear-compra-card {
   max-width: 900px;

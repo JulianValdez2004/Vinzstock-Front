@@ -1,5 +1,5 @@
 import { ref, computed, watch } from 'vue'
-import productoService from '@/services/productoService'
+import productoService from '@/services/ProductoService'
 import { ProductoRegistro } from '@/models/ProductoRegistro'
 
 
