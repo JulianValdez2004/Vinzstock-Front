@@ -15,6 +15,12 @@
           <span class="icon">➕</span>
           Nuevo Pedido
         </button>
+
+        <router-link to="/admin/proveedores/ListaCompras" class="btn btn-primary">
+          <span class="icon">📋</span>
+          Lista de Pedidos
+        </router-link>
+
       </div>
 
       <!-- Card de búsqueda y tabla -->
@@ -726,6 +732,7 @@ onMounted(() => {
 .btn-primary {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
+  text-decoration:none;
   box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
 }
 
