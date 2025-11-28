@@ -11,10 +11,10 @@ import LoginView from '@/views/LoginView.vue'
 import RecuperarContrasenaView from '@/views/RecuperarContrasenaView.vue'
 
 // Vistas de admin
-import AdminDashboardView from '@/views/Admin/DashboardView.vue'
-import CrearUsuarioView from '@/views/Admin/CrearUsuarioView.vue'
-import ListarUsuariosView from '@/views/Admin/ListarUsuariosView.vue'
-import ConfiguracionView from '@/views/Admin/ConfiguracionView.vue'
+import AdminDashboardView from '@/views/Admin/DashboardView.vue';
+import CrearUsuarioView from '@/views/Admin/CrearUsuarioView.vue';
+import ListarUsuariosView from '@/views/Admin/ListarUsuariosView.vue';
+import ConfiguracionView from '@/views/Admin/ConfiguracionView.vue';
 import CrearProductoView from "@/views/Admin/CrearProductoView.vue";
 import AdminOptions from "@/views/Admin/AdminOptions.vue";
 import EditarProductoView from "@/views/Admin/EditarProductoView.vue";
@@ -23,10 +23,15 @@ import CrearProveedorView from "@/views/Admin/CrearProveedorView.vue";
 import ProveedoresView from "@/views/Admin/proveedoresView.vue";
 import EditarProveedorView from "@/views/Admin/EditarProveedorView.vue";
 import CrearCompraView from "@/views/Admin/CrearCompraView.vue";
+import CrearClienteView from '@/views/Admin/CrearClienteView.vue';
+import VentasView from '@/views/Admin/VentasView.vue'
 
 // Vistas de usuario
 import UserDashboardView from '@/views/User/DashboardView.vue'
 import PerfilView from '@/views/User/PerfilView.vue'
+import CajeroVentasView from '@/views/User/VentasView.vue'
+import CajeroCrearClienteView from '@/views/User/CrearClienteView.vue'
+
 
 
 
@@ -138,7 +143,22 @@ const routes = [
                 name: "HacerPedido",
                 component: CrearCompraView
 
+            },
+
+            {
+                path: 'ventas',
+                name: 'Ventas',
+                component: VentasView
+
+            },
+
+            {
+                path: "ventas/crear-cliente",
+                name: "CrearCliente",
+                component: CrearClienteView
+
             }
+            
 
         ]
     },
@@ -158,12 +178,19 @@ const routes = [
                 path: 'perfil',
                 name: 'Perfil',
                 component: PerfilView
-            }/*,
+            },
             {
-                path: 'inventario',
-                name: 'UserInventario',
-                component: () => import('@/views/user/InventarioView.vue')
-            }*/
+                path: 'ventas',
+                name: 'CajeroVentas',
+                component: CajeroVentasView
+            },
+
+            {
+                path: 'ventas/crear-cliente',
+                name: 'CajeroCrearCliente',
+                component: CajeroCrearClienteView
+            }
+            
         ]
     },
 

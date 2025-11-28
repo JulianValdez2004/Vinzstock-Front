@@ -45,6 +45,11 @@
           <span class="icon">⭐</span>
           <span v-if="!isSidebarCollapsed" class="text">Proveedores</span>
         </router-link>
+
+        <router-link to="/admin/ventas" class="nav-item">
+          <span class="icon">💰</span>
+          <span v-if="!isSidebarCollapsed" class="text">Ventas</span>
+        </router-link>
       </nav>
 
       <div class="sidebar-footer">
@@ -100,7 +105,9 @@ const pageTitle = computed(() => {
     '/admin/crear-usuario': 'Crear Nuevo Usuario',
     '/admin/inventario': 'Inventario',
     '/admin/configuracion': 'Configuración',
-    '/admin/proveedores' : 'Proveedores'
+    '/admin/proveedores' : 'Proveedores',
+    '/admin/ventas': 'Ventas', 
+    '/admin/ventas/crear-cliente':'Crear Cliente'
   }
   return titles[route.path] || 'Panel de Administración'
 })
