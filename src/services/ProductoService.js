@@ -1,5 +1,7 @@
+
 import api from './apiLogin'
 import { ProductoRegistro } from '@/models/ProductoRegistro'
+import { Producto } from '@/models/Producto'
 
 class ProductoService {
     /**
@@ -40,6 +42,12 @@ class ProductoService {
             return this.handleError(error)
         }
     }
+    
+
+
+    
+    
+        
 
     /**
      * Obtener producto por ID
@@ -153,6 +161,34 @@ class ProductoService {
             return {
                 success: true,
                 data: response.data
+            }
+        } catch (error) {
+            return this.handleError(error)
+        }
+    }
+
+
+    async  exportarInventarioPdf() {
+        try {
+            const response = await api.get('/productos/exportar-pdf', {
+                responseType: 'blob'
+            })
+            
+            // Crear un enlace temporal para descargar
+            const url = window.URL.createObjectURL(new Blob([response.data]))
+            const link = document.createElement('a')
+            link.href = url
+            
+            const fecha = new Date().toISOString().split('T')[0]
+            link.setAttribute('download', `reporte_inventario_${fecha}.pdf`)
+            
+            document.body.appendChild(link)
+            link.click()
+            link.remove()
+            
+            return {
+                success: true,
+                message: 'PDF descargado exitosamente'
             }
         } catch (error) {
             return this.handleError(error)

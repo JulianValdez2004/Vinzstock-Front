@@ -370,11 +370,7 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.proveedores-page {
-  min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: 2rem 0;
-}
+
 
 .container {
   max-width: 1400px;

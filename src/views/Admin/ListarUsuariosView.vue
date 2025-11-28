@@ -163,7 +163,7 @@ async function toggleEstado(usuario) {
 
 .btn-primary {
   padding: 10px 20px;
-  background: #16a34a;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   border: none;
   border-radius: 6px;
@@ -180,7 +180,8 @@ async function toggleEstado(usuario) {
 
 
 .btn-primary:hover {
-  background: #15803d;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
 }
 
 .search-section {

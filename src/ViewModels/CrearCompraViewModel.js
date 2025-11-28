@@ -1,7 +1,7 @@
 import { ref, computed } from 'vue'
 import compraService from '@/services/CompraService'
 import proveedorService from '@/services/proveedorService'
-import { CompraRegistro, DetalleCompra } from '@/models/CompraRegistro'
+
 
 export class CrearCompraViewModel {
     constructor() {

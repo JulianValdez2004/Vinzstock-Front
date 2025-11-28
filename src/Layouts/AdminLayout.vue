@@ -8,6 +8,9 @@
         <button @click="toggleSidebar" class="toggle-btn">
           {{ isSidebarCollapsed ? '→' : '←' }}
         </button>
+
+    
+
       </div>
 
       <nav class="sidebar-nav">
@@ -69,6 +72,7 @@
         </div>
 
         <div class="navbar-right">
+          <NotificationButton />
           <div class="user-info">
             <div class="user-avatar">{{ userInitials }}</div>
             <div class="user-details">
@@ -91,6 +95,10 @@
 import { ref, computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useAuth } from '@/composables/useAuth'
+import NotificationButton from '@/composables/NotificacionButton.vue'
+
+
+
 
 const router = useRouter()
 const route = useRoute()
@@ -130,6 +138,9 @@ function handleLogout() {
   min-height: 100vh;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
+
+
+
 
 /* Sidebar */
 .sidebar {

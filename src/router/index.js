@@ -38,6 +38,7 @@ import CajeroCrearClienteView from '@/views/User/CrearClienteView.vue'
 
 
 
+
 const routes = [
     {
         path: '/',
