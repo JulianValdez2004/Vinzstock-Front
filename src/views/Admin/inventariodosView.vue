@@ -7,6 +7,11 @@
         <p class="subtitle">{{ productos.length }} productos registrados</p>
       </div>
       <div class="header-right">
+
+        <button @click="exportarPdf" class="btn-export">
+          📄 Exportar como PDF
+        </button>
+
         <router-link to="/admin/inventario/crearProducto" class="btn-primary">
           ➕ Crear Producto
         </router-link>
@@ -106,7 +111,7 @@
           <td class="precio-final">
             {{ formatPrecioFinal(producto.precioVenta, producto.iva) }}
           </td>
-          <td></td>
+          <td >  {{ producto.cantidad }}</td>
           <td>
             <div class="actions">
               <button
@@ -130,6 +135,9 @@ import { ref, computed, onMounted } from 'vue'
 import productoService from '@/services/ProductoService'
 import CrearProductoView from './CrearProductoView.vue'
 import EditarProductoView from './EditarProductoView.vue'
+
+
+
 
 const productos = ref([])
 const searchQuery = ref('')
@@ -161,7 +169,9 @@ onMounted(async () => {
 async function loadProductos() {
   isLoading.value = true
   error.value = ''
+  
 
+  
   try {
     const result = await productoService.getAllProductos()
     if (result.success) {
@@ -169,9 +179,27 @@ async function loadProductos() {
     } else {
       error.value = result.error
     }
-  } catch (err) {
+  } catch (error) {
     error.value = 'Error al cargar productos'
-    console.error(err)
+    
+  } finally {
+    isLoading.value = false
+  }
+}
+
+async function exportarPdf() {
+  try {
+    isLoading.value = true
+    const result = await productoService.exportarInventarioPdf()
+    
+    if (result.success) {
+      alert('PDF descargado exitosamente')
+    } else {
+      alert(result.error || 'Error al generar PDF')
+    }
+  } catch (error) {
+    console.error('Error:', error)
+    alert('Error al exportar PDF')
   } finally {
     isLoading.value = false
   }
@@ -249,6 +277,8 @@ function closeEditarProducto() {
   showEditarProducto.value = false
   productoSeleccionado.value = null
 }
+
+
 </script>
 
 <style scoped>
@@ -267,6 +297,7 @@ function closeEditarProducto() {
   gap: 16px;
 }
 
+
 .header-left h2 {
   margin: 0 0 4px 0;
   font-size: 24px;
@@ -278,6 +309,12 @@ function closeEditarProducto() {
   margin: 0;
   color: #64748b;
   font-size: 14px;
+}
+.header-right {
+  display: flex;
+  justify-content: space-between; /* SEPARA LOS BOTONES */
+  align-items: center;
+  width: 40%;
 }
 
 .btn-crear {
@@ -297,6 +334,26 @@ function closeEditarProducto() {
 
 .btn-crear:hover {
   background: #15803d;
+}
+
+.btn-export {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  
+  transition: background-color 0.3s;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.btn-export:hover {
+  box-shadow: 0 4px 12px rgba(252, 0, 0, 0.322);
+  transform: translateY(-2px);
+
 }
 
 /* Modal */
@@ -582,6 +639,10 @@ function closeEditarProducto() {
   font-weight: 700;
   font-size: 15px;
   color: #0f172a;
+}
+
+.cantidad {
+  color: #3b82f6;
 }
 
 .actions {

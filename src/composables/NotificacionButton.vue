@@ -95,10 +95,12 @@ export default {
   cursor: pointer;
   font-size: 16px;
   transition: background-color 0.3s;
+  transition: background 0.2s;
 }
 
 .notification-btn:hover {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  transform: translateY(-2px);
 }
 
 .notification-badge {
